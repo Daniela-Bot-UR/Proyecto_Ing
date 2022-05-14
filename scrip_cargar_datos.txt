@@ -1,0 +1,57 @@
+--scrip para cargar los datos desde lsd tablas en excel las cueles fueron creadas anteriormente con una base de datos que contiene todos los datos sin ningun tipo de manipulacion 
+
+--asignatura
+copy asignatura
+	from 'C:\ing_datos\proyecto\asignatura.csv'
+	with delimiter ';' csv header
+	
+--horario
+copy horario
+	from 'C:\ing_datos\proyecto\horario.csv'
+	with delimiter ';' csv header
+
+--modalidad
+copy tipo_modalidad
+	from 'C:\modalidad.csv'
+	with delimiter ';' csv header
+
+
+--grupo
+copy grupo
+	from 'C:\ing_datos\proyecto\grupo.csv'
+	with delimiter ';' csv header
+
+select*
+from grupo
+--horario grupo
+
+copy horario_grupo
+	from 'C:\ing_datos\proyecto\horario-grupo.csv'
+	with delimiter ';' csv header
+
+--tipo profesor
+copy tipo_p
+	from 'C:\ing_datos\proyecto\tipo_profesor.csv'
+	with delimiter ';' csv header
+
+--asignatura_profesor
+copy asignatura_profesor
+	from 'C:\ing_datos\proyecto\asignatura_profesor.csv'
+	with delimiter ';' csv header	
+	
+--profesor
+copy profesor
+	from 'C:\ing_datos\proyecto\profesor.csv'
+	with delimiter ';' csv header
+
+--grupo_profesor
+copy grupo_profesor
+	from 'C:\ing_datos\proyecto\Grupo_profesor.csv'
+	with delimiter ';' csv header
+	
+--profesor_tipo_p
+
+copy profesor_tipo_p(id_tipo_p,cedula_profesor)
+
+	from 'C:\ing_datos\proyecto\profesor_tipo_p.csv'
+	with delimiter ';' csv header

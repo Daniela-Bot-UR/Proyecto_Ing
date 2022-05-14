@@ -1,0 +1,246 @@
+--generado por el pgmodeler para crear las tablas, se modifico debido a que había errores en la db, las tablas afectadas de crearon a mano para mayor facilidad
+
+-- object: public.asignatura | type: TABLE --
+-- DROP TABLE IF EXISTS public.asignatura CASCADE;
+CREATE TABLE public.asignatura (
+	codigo integer NOT NULL,
+	nombre varchar(100),
+	tipologia varchar(30) NOT NULL,
+	CONSTRAINT asignatura_pk PRIMARY KEY (codigo)
+
+);
+-- ddl-end --
+ALTER TABLE public.asignatura OWNER TO postgres;
+-- ddl-end --
+
+-- object: public.grupo | type: TABLE --
+-- DROP TABLE IF EXISTS public.grupo CASCADE;
+CREATE TABLE public.grupo (
+	grupo integer NOT NULL,
+	capacidad integer NOT NULL,
+	codigo_asignatura integer NOT NULL,
+	"id_Modalidad" integer,
+	CONSTRAINT grupo_pk PRIMARY KEY (grupo,codigo_asignatura)
+
+);
+-- ddl-end --
+ALTER TABLE public.grupo OWNER TO postgres;
+-- ddl-end --
+
+-- object: public.horario_grupo | type: TABLE --
+-- DROP TABLE IF EXISTS public.horario_grupo CASCADE;
+CREATE TABLE public.horario_grupo (
+	dia_horario varchar(10) NOT NULL,
+	hora_inicio_horario time NOT NULL,
+	hora_fin_horario time NOT NULL,
+	grupo_grupo integer NOT NULL,
+	codigo_asignatura_grupo integer NOT NULL,
+	CONSTRAINT horario_grupo_pk PRIMARY KEY (dia_horario,hora_inicio_horario,hora_fin_horario,grupo_grupo,codigo_asignatura_grupo)
+
+);
+-- ddl-end --
+ALTER TABLE public.horario_grupo OWNER TO postgres;
+-- ddl-end --
+
+-- object: public.profesor | type: TABLE --
+-- DROP TABLE IF EXISTS public.profesor CASCADE;
+CREATE TABLE public.profesor (
+	cedula bigint NOT NULL,
+	nombre varchar(100),
+	escalafon varchar(30) NOT NULL,
+	CONSTRAINT "PROFESOR_pk" PRIMARY KEY (cedula)
+
+);
+-- ddl-end --
+ALTER TABLE public.profesor OWNER TO postgres;
+-- ddl-end --
+
+-- object: public.profesor_tipo_p | type: TABLE --
+-- DROP TABLE IF EXISTS public.profesor_tipo_p CASCADE;
+CREATE TABLE public.profesor_tipo_p (
+	cedula_profesor bigint NOT NULL,
+	id_tipo_p smallint NOT NULL,
+	CONSTRAINT tipo_profesor_pk PRIMARY KEY (cedula_profesor,id_tipo_p)
+
+);
+-- ddl-end --
+ALTER TABLE public.profesor_tipo_p OWNER TO postgres;
+-- ddl-end --
+
+-- object: public.horario | type: TABLE --
+-- DROP TABLE IF EXISTS public.horario CASCADE;
+CREATE TABLE public.horario (
+	dia varchar(10) NOT NULL,
+	hora_inicio time NOT NULL,
+	hora_fin time NOT NULL,
+	CONSTRAINT horario_pk PRIMARY KEY (dia,hora_inicio,hora_fin)
+
+);
+-- ddl-end --
+ALTER TABLE public.horario OWNER TO postgres;
+-- ddl-end --
+
+-- object: public."Grupo_Profesor" | type: TABLE --
+-- DROP TABLE IF EXISTS public."Grupo_Profesor" CASCADE;
+CREATE TABLE public."Grupo_Profesor" (
+	fecha_inicio date,
+	fecha_cierre date,
+	grupo_grupo integer NOT NULL,
+	codigo_asignatura_grupo integer NOT NULL,
+	cedula_profesor bigint NOT NULL,
+	observaciones varchar(100),
+	CONSTRAINT "Grupo_Profesor_pk" PRIMARY KEY (grupo_grupo,codigo_asignatura_grupo,cedula_profesor)
+
+);
+-- ddl-end --
+ALTER TABLE public."Grupo_Profesor" OWNER TO postgres;
+-- ddl-end --
+
+-- object: grupo_fk | type: CONSTRAINT --
+-- ALTER TABLE public."Grupo_Profesor" DROP CONSTRAINT IF EXISTS grupo_fk CASCADE;
+ALTER TABLE public."Grupo_Profesor" ADD CONSTRAINT grupo_fk FOREIGN KEY (grupo_grupo,codigo_asignatura_grupo)
+REFERENCES public.grupo (grupo,codigo_asignatura) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: profesor_fk | type: CONSTRAINT --
+-- ALTER TABLE public."Grupo_Profesor" DROP CONSTRAINT IF EXISTS profesor_fk CASCADE;
+ALTER TABLE public."Grupo_Profesor" ADD CONSTRAINT profesor_fk FOREIGN KEY (cedula_profesor)
+REFERENCES public.profesor (cedula) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: public."Modalidad" | type: TABLE --
+-- DROP TABLE IF EXISTS public."Modalidad" CASCADE;
+CREATE TABLE public."Modalidad" (
+	id integer NOT NULL,
+	tipo varchar(30),
+	CONSTRAINT "Modalidad_pk" PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public."Modalidad" OWNER TO postgres;
+-- ddl-end --
+
+-- object: public.asignatura_profesor | type: TABLE --
+-- DROP TABLE IF EXISTS public.asignatura_profesor CASCADE;
+CREATE TABLE public.asignatura_profesor (
+	codigo_asignatura integer NOT NULL,
+	cedula_profesor bigint NOT NULL,
+	CONSTRAINT asignatura_profesor_pk PRIMARY KEY (codigo_asignatura,cedula_profesor)
+
+);
+-- ddl-end --
+ALTER TABLE public.asignatura_profesor OWNER TO postgres;
+-- ddl-end --
+
+-- object: asignatura_fk | type: CONSTRAINT --
+-- ALTER TABLE public.asignatura_profesor DROP CONSTRAINT IF EXISTS asignatura_fk CASCADE;
+ALTER TABLE public.asignatura_profesor ADD CONSTRAINT asignatura_fk FOREIGN KEY (codigo_asignatura)
+REFERENCES public.asignatura (codigo) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: profesor_fk | type: CONSTRAINT --
+-- ALTER TABLE public.asignatura_profesor DROP CONSTRAINT IF EXISTS profesor_fk CASCADE;
+ALTER TABLE public.asignatura_profesor ADD CONSTRAINT profesor_fk FOREIGN KEY (cedula_profesor)
+REFERENCES public.profesor (cedula) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: profesor_fk | type: CONSTRAINT --
+-- ALTER TABLE public.profesor_tipo_p DROP CONSTRAINT IF EXISTS profesor_fk CASCADE;
+ALTER TABLE public.profesor_tipo_p ADD CONSTRAINT profesor_fk FOREIGN KEY (cedula_profesor)
+REFERENCES public.profesor (cedula) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: public.tipo_p | type: TABLE --
+-- DROP TABLE IF EXISTS public.tipo_p CASCADE;
+CREATE TABLE public.tipo_p (
+	id smallint NOT NULL,
+	tipo varchar(50) NOT NULL,
+	CONSTRAINT tipo_p_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.tipo_p OWNER TO postgres;
+-- ddl-end --
+
+-- object: tipo_p_fk | type: CONSTRAINT --
+-- ALTER TABLE public.profesor_tipo_p DROP CONSTRAINT IF EXISTS tipo_p_fk CASCADE;
+ALTER TABLE public.profesor_tipo_p ADD CONSTRAINT tipo_p_fk FOREIGN KEY (id_tipo_p)
+REFERENCES public.tipo_p (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "Modalidad_fk" | type: CONSTRAINT --
+-- ALTER TABLE public.grupo DROP CONSTRAINT IF EXISTS "Modalidad_fk" CASCADE;
+ALTER TABLE public.grupo ADD CONSTRAINT "modalidad_fk" FOREIGN KEY ("id")
+REFERENCES public."modalidad" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: asignatura_fk | type: CONSTRAINT --
+-- ALTER TABLE public.grupo DROP CONSTRAINT IF EXISTS asignatura_fk CASCADE;
+ALTER TABLE public.grupo ADD CONSTRAINT asignatura_fk FOREIGN KEY (codigo_asignatura)
+REFERENCES public.asignatura (codigo) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: grupo_fk | type: CONSTRAINT --
+-- ALTER TABLE public.horario_grupo DROP CONSTRAINT IF EXISTS grupo_fk CASCADE;
+ALTER TABLE public.horario_grupo ADD CONSTRAINT grupo_fk FOREIGN KEY (grupo_grupo,codigo_asignatura_grupo)
+REFERENCES public.grupo (grupo,codigo_asignatura) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: horario_fk | type: CONSTRAINT --
+-- ALTER TABLE public.horario_grupo DROP CONSTRAINT IF EXISTS horario_fk CASCADE;
+ALTER TABLE public.horario_grupo ADD CONSTRAINT horario_fk FOREIGN KEY (dia_horario,hora_inicio_horario,hora_fin_horario)
+REFERENCES public.horario (dia,hora_inicio,hora_fin) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "grant_CU_eb94f049ac" | type: PERMISSION --
+GRANT CREATE,USAGE
+   ON SCHEMA public
+   TO postgres;
+-- ddl-end --
+
+-- object: "grant_CU_cd8e46e7b6" | type: PERMISSION --
+GRANT CREATE,USAGE
+   ON SCHEMA public
+   TO PUBLIC;
+-- ddl-end --
+
+
+--error fatal, scrip a mano
+--por algun motivo que no entendemos la tabla modalidad no es funcional, se elimina la tabla generada y se genera manualmente
+create table tipo_modalidad(
+	"id_Modalidad" int,
+	tipo varchar(30),
+	primary key("id_Modalidad")
+);
+
+ALTER TABLE public.grupo ADD CONSTRAINT "tipo_modalidad_fk" FOREIGN KEY ("id_Modalidad")
+REFERENCES public."tipo_modalidad" ("id_Modalidad") MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+
+select *
+from grupo
+drop table grupo_profesor
+--por algun motivo que no entendemos la tabla grupo profesor no es funcional, se elimina la tabla generada y se genera manualmente
+create table grupo_profesor(
+	fecha_inicio date,
+	fecha_cierre date,
+	grupo int,
+	codigo_asig int,
+	cedula_profe bigint,
+	observaciones varchar (100),
+	primary key (fecha_inicio,fecha_cierre,grupo,codigo_asig,cedula_profe),
+	foreign key (grupo,codigo_asig)
+		references grupo(grupo,codigo_asignatura),
+	foreign key (cedula_profe)
+		references profesor(cedula)
+)

@@ -1,0 +1,172 @@
+--scrip para generar las tablas en excel que se van a trabajar a futuro, estás se generaran a partir de una  base de datos auxiliar ya que cumplira una funcion temporal
+
+
+create table  proyecto_total(
+	codigo int,
+	nombre_asignatura varchar(100),
+	tipologia varchar(30),
+	grupo int,
+	capacidad int,
+	id_modalidad int,
+	modalidad varchar(30),
+	dia varchar(20),
+	fecha_inicio date,
+	fecha_cierre date,
+	hora_inicio time without time zone,
+	hora_fin time without time zone,
+	cedula bigint,
+	nombre_profesor varchar(100),
+	escalafon_profesor varchar(50),
+	id_tipo_profesor int,
+	tipo_profesor varchar(50),
+	encargado char,
+	observaciones varchar(100)
+
+)
+--drop table proyecto_total
+
+
+copy proyecto_total
+	from 'C:\ing_datos\prueba.csv'
+	with delimiter ';' csv header
+
+
+
+--se genera la vista 
+select *
+from proyecto_total
+
+
+--asignatura
+select codigo, nombre_asignatura, tipologia
+	from proyecto_total
+	group by (codigo, nombre_asignatura, tipologia)
+
+copy (select codigo, nombre_asignatura, tipologia
+		from proyecto_total
+		group by (codigo, nombre_asignatura, tipologia))
+
+	to 'C:\ing_datos\proyecto\asignatura.csv'
+	with delimiter ';' csv header
+	
+--asignatura profesor
+	select codigo,cedula
+		from proyecto_total
+		where encargado='x'
+			group by (codigo,cedula)	
+			
+copy (select codigo,cedula
+		from proyecto_total
+		where encargado='x'
+			group by (codigo,cedula))
+
+	to 'C:\ing_datos\proyecto\asignatura_profesor.csv'
+	with delimiter ';' csv header
+	
+--tipo profesor
+select id_tipo_profesor,tipo_profesor
+from proyecto_total
+group by(id_tipo_profesor,tipo_profesor)
+
+
+copy (select id_tipo_profesor, tipo_profesor
+		from proyecto_total
+		group by(id_tipo_profesor,tipo_profesor))
+
+	to 'C:\ing_datos\proyecto\tipo_profesor.csv'
+	with delimiter ';' csv header
+	
+--Profesor_tipo_p
+select id_tipo_profesor,cedula
+from proyecto_total
+group by(id_tipo_profesor,cedula)
+
+
+copy (select id_tipo_profesor,cedula
+			from proyecto_total
+			group by(id_tipo_profesor,cedula)
+			)
+
+	to 'C:\ing_datos\proyecto\profesor_tipo_p.csv'
+	with delimiter ';' csv header
+	
+	
+--horario
+select dia,hora_inicio,hora_fin 
+	from proyecto_total
+	group by(dia, hora_inicio,hora_fin)
+
+copy (select dia,hora_inicio,hora_fin 
+	from proyecto_total
+	group by(dia, hora_inicio,hora_fin))
+
+	to 'C:\ing_datos\proyecto\horario.csv'
+	with delimiter ';' csv header
+	
+--horario grupo
+select dia,hora_inicio,hora_fin,grupo,codigo
+	from proyecto_total
+	group by(dia,hora_inicio,hora_fin,grupo,codigo)
+
+copy (select dia,hora_inicio,hora_fin,grupo,codigo
+	from proyecto_total
+	group by(dia,hora_inicio,hora_fin,grupo,codigo))
+
+	to 'C:\ing_datos\proyecto\horario-grupo.csv'
+	with delimiter ';' csv header
+
+-- modalidad
+select id_modalidad,modalidad,grupo,codigo
+	from proyecto_total
+	group by(id_modalidad,modalidad,grupo,codigo)
+	
+copy (select id_modalidad,modalidad
+	from proyecto_total
+	group by(id_modalidad,modalidad))
+
+	to 'C:\ing_datos\proyecto\modalidad.csv'
+	with delimiter ';' csv header
+
+
+-- grupo
+select grupo,capacidad,codigo,id_modalidad
+from proyecto_total
+group by( grupo,capacidad, id_modalidad, codigo,id_modalidad)
+
+copy (select grupo,capacidad,codigo,id_modalidad
+		from proyecto_total
+		group by( grupo,capacidad, id_modalidad, codigo,id_modalidad))
+
+	to 'C:\ing_datos\proyecto\grupo.csv'
+	with delimiter ';' csv header
+	
+
+--profesor
+select cedula,nombre_profesor as nombre ,escalafon_profesor as escalafon
+	from proyecto_total
+	group by (cedula, nombre ,escalafon)
+	order by(cedula)
+
+copy (select cedula,nombre_profesor as nombre ,escalafon_profesor as escalafon
+	from proyecto_total
+	group by (cedula, nombre ,escalafon))
+
+	to 'C:\ing_datos\proyecto\profesor.csv'
+	with delimiter ';' csv header
+
+--grupo_profesor
+select fecha_inicio,fecha_cierre,grupo,observaciones,codigo,cedula
+	from proyecto_total
+	group by (fecha_inicio,fecha_cierre,observaciones,grupo,codigo,cedula)
+	order by(grupo,codigo)
+	
+	
+	
+copy (select fecha_inicio,fecha_cierre,grupo,codigo,cedula,observaciones
+	from proyecto_total
+	group by (fecha_inicio,fecha_cierre,grupo,codigo,cedula,observaciones))
+
+	to 'C:\ing_datos\proyecto\grupo_profesor.csv'
+	with delimiter ';' csv header
+
+	
