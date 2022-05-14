@@ -235,12 +235,12 @@ create table grupo_profesor(
 	fecha_inicio date,
 	fecha_cierre date,
 	grupo int,
-	codigo_asig int,
-	cedula_profe bigint,
+	codigo_asignatura int,
+	cedula_profesor bigint,
 	observaciones varchar (100),
-	primary key (fecha_inicio,fecha_cierre,grupo,codigo_asig,cedula_profe),
-	foreign key (grupo,codigo_asig)
+	primary key (fecha_inicio,fecha_cierre,grupo,codigo_asignatura,cedula_profesor),
+	foreign key (grupo,codigo_asignatura)
 		references grupo(grupo,codigo_asignatura),
-	foreign key (cedula_profe)
+	foreign key (cedula_profesor)
 		references profesor(cedula)
 )
