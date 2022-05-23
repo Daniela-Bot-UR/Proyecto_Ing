@@ -14,28 +14,32 @@
 podran encontrar dos carpetas, en la primera, nombrada "Excel", se encontrarán los archivos .csv que contienen los datos de las tablas de su mismo nombre. La segunda , "Postgres" donde se encuentran varios scripts con diferentes propositos que se deben ejecutar en postgresql, finalmente en el directorio "main" se encuentra la dase de datos y un .jpg con la foto del diagrama relacional de nuestro proyecto </p>
  
  
-<h3>instrucciones:</h3>
+<h3>instrucciones para la creacion de la base de datos:</h3>
 <p>Aclaración:  se usó el arcihivo /script_generar_excel.txt en una base de datos temporal, ya que su unica funcionalidad es convertir la base de datos completa(prueba.csv) a las diferentes tablas que se van a trabajar en el proyecto,  ordena estos datos creando archivos excel individuales , los cuales se ubicaron en la carpeta /excel/, segun las tablas definidas en el diagrama relacional. </p>
 
 a continuacion están las instruciones para el uso de estos archivos: <br>
+<ol>
+  <li>prinero que nada, se debe correr el archivo /script_pgmodeler_modificado.txt, a partir de este se generará estructura de la base de datos que se usará en el    proyecto
+  <li>una vez generada se puede utiizar el archivo /script_cargar_datos.txt que carga los datos desde los excel .csv a la base de datos creadas en el punto 1
+</ol>
 
-<p>prinero que nada, se debe correr el archivo /script_pgmodeler_modificado.txt, a partie de este se generará la base de datos que se usará en el proyecto</p>
 
-<p>una vez generados se puede utiizar el archivo </p>
+<h3> utilidades del proyecto </h3>
+este proyecto tiene dos funcionalidades principales:
+<ol>
+  <li><h4>visualización de tablas</h4>
+  <li><h4>analisis, (DASH) </h4>
+</ol>
 
-
-<table>
-  <tr>
-  <th>nota:</th>
-  <th>
+<h4>visualización de tablas</h4>
+<p> esta se puede realizar a traves del archivo en /python/ Conexión_Consulta.py </p>
       se deben instalar las librerías:
       <ul>
           <li>pandas
           <li>tabulate
           <li>display
       </ul>
-    </th>
-  </tr>
+
 
   
  
