@@ -1,12 +1,13 @@
-#pip install pandas
-#pip install tabulate
-#pip install display
+#librerias necesarias
+	#pip install pandas
+	#pip install tabulate
+	#pip install display
 
 import psycopg2
 import pandas as pd
 from IPython.display import display
 
-
+#se definen las consultas de las tablas con un markdown() para una visualizacion más comoda y clara
 def asignatura():
     sql1 = """select *
     from asignatura;"""
@@ -291,48 +292,8 @@ def ayuda():
     print("\t asignatura \n \t tipo profesor \n \t grupo \n \t horario_grupo \n \t horario \n \t asignatura profesor \n \t grupo profesor \n \t profesor \n \t profesor tipo profesor \n \t modalidad")
     print("recuerde escribir todo en minusculas")
     print("si quiere salir del programa escriba no mas")
-
     
-
-def horas_trabajadas():
-    sql2= """select gp.cedula_profe, sum(hora_fin_horario-hora_inicio_horario )
-	from grupo_profesor as gp inner join horario_grupo as hg on(gp.grupo=hg.grupo_grupo and gp.codigo_asig=hg.codigo_asignatura_grupo)
-	group by gp.cedula_profe
-	order by(sum) desc;"""
-    n=2
-
-    cursor = conexion.cursor()
-    cursor.execute(sql2)
-    asig1 = cursor.fetchone()
-    
-    print("***************************************************horas_trabajadas*********************************************************")
-    full_data = []
-    while asig1:
-        linea = ""
-        for i in range(n):
-            linea += f"{asig1[i]};"
-            #print(linea)
-            #print(asig1[i], end=" ")
-        asig1 = cursor.fetchone()
-        linea = linea.split(";")
-        dato = {"cedula_profesor":linea[0],
-                "horas trabajadas":linea[1]}
-        full_data.append(dato)
-    dataframe = pd.DataFrame(full_data)
-    print(dataframe.to_markdown())
-    cursor.close() 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
+#inicio de la conexion
 try:
     conexion = psycopg2.connect(user="postgres",
                                 password="123456",
@@ -341,30 +302,9 @@ try:
                                 port="5432")
     print("Conexión correcta!")
     
-
-    tablas=["asignatura","tipo_profesor","grupo"]
-    #sql1="""SELECT COUNT(*)
-    #        FROM information_schema.columns
-    #        WHERE table_name = f"{tablas[i]} """
-    #sqln=""" SELECT COUNT(*)
-    #        FROM information_schema.columns
-    #        WHERE table_name = 'proyecto_total';"""
-    
-#se establece el numero de columnas de la tabla
-#    cursor1 = conexion.cursor()
-#   cursor1.execute(sqln)
-#    asig1 = cursor1.fetchone()
-#    #n=int(asig1[0])
-    
-##############################################################################################################################
-#Se ejecuta la sentencia para mostrar los nombres de las asignaturas
     
     
-    
-###################################################################################################################3#
-#Se ejecuta la sentencia para mostrar los nombres de las grupos
-       
-################################################################################################################33333
+#condicional para mostrar las tablas segun lo deseado por el usuario
     corriendo=True
     
     while corriendo:
@@ -392,8 +332,7 @@ try:
             corriendo=False
         elif ex==".help":
             ayuda()
-        elif ex=="hora_trabajadas por profesor":
-            horas_trabajadas()
+
         else:
             print("ingrese un valor valido, para mas informacion escriba .help")
 
