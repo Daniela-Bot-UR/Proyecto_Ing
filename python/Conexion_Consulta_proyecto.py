@@ -1,13 +1,12 @@
-#librerias necesarias
-	#pip install pandas
-	#pip install tabulate
-	#pip install display
+#pip install pandas
+#pip install tabulate
+#pip install display
 
 import psycopg2
 import pandas as pd
 from IPython.display import display
 
-#se definen las consultas de las tablas con un markdown() para una visualizacion más comoda y clara
+
 def asignatura():
     sql1 = """select *
     from asignatura;"""
@@ -29,7 +28,7 @@ def asignatura():
         linea = linea.split(":")
         dato = {"codigo":linea[0],
                 "nombre":linea[1],
-                "tipologia":linea[2]}
+                "id_tipologia":linea[2]}
         full_data.append(dato)
     dataframe = pd.DataFrame(full_data)
     print(dataframe.to_markdown())
@@ -228,7 +227,7 @@ def profesor():
         linea = linea.split(";")
         dato = {"cedula_profesor":linea[0],
                 "nombre_profesor":linea[1],
-                "escalafon":linea[2]}
+                "id_escalafon":linea[2]}
         full_data.append(dato)
     dataframe = pd.DataFrame(full_data)
     print(dataframe.to_markdown())
@@ -289,26 +288,87 @@ def modalidad():
 def ayuda():
     print ("instrucciones: ")
     print("las tablas son:")
-    print("\t asignatura \n \t tipo profesor \n \t grupo \n \t horario_grupo \n \t horario \n \t asignatura profesor \n \t grupo profesor \n \t profesor \n \t profesor tipo profesor \n \t modalidad")
+    print("\t asignatura \n \t tipo profesor \n \t grupo \n \t horario_grupo \n \t horario \n \t asignatura profesor \n \t grupo profesor \n \t profesor \n \t profesor tipo profesor \n \t modalidad  \n \t tipologia \n \t escalafon")
     print("recuerde escribir todo en minusculas")
     print("si quiere salir del programa escriba no mas")
+
     
-#inicio de la conexion
+
+def tipologia():
+    sql2= """select *
+        from tipologia"""
+    n=2
+
+    cursor = conexion.cursor()
+    cursor.execute(sql2)
+    asig1 = cursor.fetchone()
+    
+    print("***************************************************tipografía*********************************************************")
+    full_data = []
+    while asig1:
+        linea = ""
+        for i in range(n):
+            linea += f"{asig1[i]};"
+            #print(linea)
+            #print(asig1[i], end=" ")
+        asig1 = cursor.fetchone()
+        linea = linea.split(";")
+        dato = {"id":linea[0],
+                "nombre":linea[1]}
+        full_data.append(dato)
+    dataframe = pd.DataFrame(full_data)
+    print(dataframe.to_markdown())
+    cursor.close() 
+
+def escalafon():
+    sql2= """select *
+        from escalafon"""
+    n=2
+
+    cursor = conexion.cursor()
+    cursor.execute(sql2)
+    asig1 = cursor.fetchone()
+    
+    print("***************************************************escalafon*********************************************************")
+    full_data = []
+    while asig1:
+        linea = ""
+        for i in range(n):
+            linea += f"{asig1[i]};"
+            #print(linea)
+            #print(asig1[i], end=" ")
+        asig1 = cursor.fetchone()
+        linea = linea.split(";")
+        dato = {"id":linea[0],
+                "tipo":linea[1]}
+        full_data.append(dato)
+    dataframe = pd.DataFrame(full_data)
+    print(dataframe.to_markdown())
+    cursor.close() 
+
+    
+    
+    
+    
+    
+    
+    
+    
+
 try:
     conexion = psycopg2.connect(user="postgres",
-                                password="123456",
-                                database="proyecto_inge",
+                                password="972672",
+                                database="proyevto_inge2_4",
                                 host="localhost",
                                 port="5432")
     print("Conexión correcta!")
     
+
     
-    
-#condicional para mostrar las tablas segun lo deseado por el usuario
     corriendo=True
     
     while corriendo:
-        ex=input("que taba quiere ver: ")
+        ex=input("que tabla quiere ver: ")
     
         if ex=="asignatura":
             asignatura()
@@ -332,21 +392,17 @@ try:
             corriendo=False
         elif ex==".help":
             ayuda()
+        elif ex=="tipologia":
+            tipologia()
+        elif ex=="escalafon":
+            escalafon()
 
         else:
             print("ingrese un valor valido, para mas informacion escriba .help")
 
     conexion.close()
 
-###############################################################################################################################333#3###
-    
-    ################################################################################################################################
-    
-###############################################################################################################################################
-    
-    ##############################################################################################################################
 
-    #############################################################################################################################3
 except psycopg2.Error as e:
     print("Ocurrió un error al consultar: ", e)
 
