@@ -2,13 +2,13 @@
 <h2>integrantes:</h2>
 <ul>
   <li>Paula Andrea Castiblanco Niño</li>
-  <li>Daniela Sofía Gil Polaco </li>
+  <li>Daniela Sofía Gil Polanco </li>
   <li>Juan Sebastián Contreras Alejo </li>
  </ul>
 <br>
 
 <h3>Sobre el proyecto:</h3>
-<p> Desde hace mucho tiempo se usa excel para el manejo de informacion "masiva" sin embargo con el paso del tiempo se implementaron herramientas más eficientes a la hora del manejo de bases de datos, una de estas es postgresql que atravez del leguaje SQL, la cual permite mantener toda la informacion, y al mismo tiempo , a travez de consultas, se puede visualizar de forma más clara y compacta usando relaciones entre tablas, asi mismo ocupa un espacion menor en memoria y es facilmente portable. </p>
+<p> Desde hace mucho tiempo se usa excel para el manejo de informacion "masiva" sin embargo con el pasar de los años se implementaron herramientas más eficientes a la hora de manejar bases de datos. Una de estas es postgresql, que atravez del lenguaje SQL, la cual permite mantener toda la informacion y al mismo tiempo , a travez de consultas, se puede visualizar de forma más clara y compacta usando relaciones entre tablas, asi mismo ocupa un espacion menor en memoria y es facilmente portable. </p>
 
 <p> Este github contiene todos los archivos necesarios para el diseño e implementacion de la base de datos, ubicada en prueba.csv, en postgresql. <br>
 podran encontrar dos carpetas, en la primera, nombrada "Excel", se encontrarán los archivos .csv que contienen los datos de las tablas de su mismo nombre. La segunda , "Postgres" donde se encuentran varios scripts con diferentes propositos que se deben ejecutar en postgresql, finalmente en el directorio "main" se encuentra la dase de datos y un .jpg con la foto del diagrama relacional de nuestro proyecto </p>
