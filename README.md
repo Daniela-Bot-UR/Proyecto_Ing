@@ -45,10 +45,9 @@ de la siguente forma: <br>
 <h5>analisis practico de los datos</h5>
  para el proyecto se plantearon cuatro escenarios de analisis:
  <ol>
-    <li> ? -- analizar la cantidad de estudiantes que ven las asignatura en cada modalidad para encontrar cual modelo de enseñanza prefieren los alumnos
-    <li> ? --analizar la cantidad de estudiantes por día para organizar aforos
-    <li> analizar la cantidad de estudiantes que la universidad espera que matriculen en una asignatura, con la finalidad de encontrar las asignaturas más vistas 
-     <li>analizar en cuales asignaturas hacen falta profesores y cuantos, esto con el fin de realizar contrataciones
+    <li> se quiere buscar un perfil del escalafón más usado a la hora de dictar clases
+    <li> analizar la cantidad de estudiantes que la universidad espera que inscriban una asignatura, esto con el fin de evaluar cuál es la expectativa de la universidad  
+     <li>analizar en cuales asignaturas hacen falta profesores y cuantos, esto con el fin de realizar perfiles en las entrevistas
       <li> analizar las horas trabajadas por los profesores, esto con el fin de evaluar aumentos, pagos y otros
  </ol>
 
