@@ -36,12 +36,9 @@ este proyecto tiene dos funcionalidades principales:
 </ul>
 
 <h5>visualización de tablas</h5>
-<p> anteriormente se deben de tener las librerías: pandas, tabulate y display, instaladas en la maquina, esta se puede realizar a traves del archivo en /python/ Conexión_Consulta.py , este preguntará cual tabla se desea visualizar, se debe ingresar la tabla deseada y si se tiene dudas respecto a su nombre se ingresa un .help que despliega el nombre de todas las tablas de la forma que se debe ingresar, tambien se puede ingresar "no mas" para detener la consulta</p>
+<p> anteriormente se deben de tener las librerías: pandas, tabulate y display, instaladas en la maquina, esta se puede realizar a traves del archivo en /python/dash/ consulta_fisioterapia.py , este preguntará cual tabla se desea visualizar, se debe ingresar la tabla deseada y si se tiene dudas respecto a su nombre se ingresa un .help que despliega el nombre de todas las tablas de la forma que se debe ingresar, tambien se puede ingresar "no mas" para detener la consulta</p>
 
-de la siguente forma: <br>
-<b> <img width="538" alt="Captura" src="https://user-images.githubusercontent.com/91902584/170170438-8d2ed1f8-2f02-4bd8-9a11-8d393f3b0760.PNG"> </b>
 
-<p> en la imagen se puede visualizar como se usa el .help y como se puede visualizar una tabla</p> <br>
 <h5>analisis practico de los datos</h5>
  para el proyecto se plantearon cuatro escenarios de analisis:
  <ol>
